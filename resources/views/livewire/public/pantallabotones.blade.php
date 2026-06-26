@@ -1,9 +1,8 @@
-{{-- resources/views/tickets/pantallabotones.blade.php --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Municipalidad de San Luis · Emisión de Tickets</title>
 
@@ -15,75 +14,64 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background: #e8ecf1;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
-            margin: 0;
             touch-action: manipulation;
+            padding: 0;
+            margin: 0;
         }
 
         /* ===== CONTENEDOR PRINCIPAL ===== */
         .totem {
             width: 100%;
-            max-width: 1100px;
+            height: 100vh;
+            max-height: 100vh;
             background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 20px 60px -12px rgba(0, 20, 40, 0.30), 0 8px 24px -6px rgba(0, 0, 0, 0.08);
-            padding: 28px 32px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 0;
+            box-shadow: none;
+            padding: 24px 28px 20px;
+            display: flex;
+            flex-direction: column;
+            border: none;
+            overflow: hidden;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER - SOLO LOGO ===== */
         .header {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding-bottom: 20px;
+            justify-content: center;
+            padding-bottom: 16px;
             border-bottom: 1.5px solid #e6eaef;
-            flex-wrap: wrap;
+            flex-shrink: 0;
+            position: relative;
+            background: transparent;
         }
 
         .header-logo {
-            flex-shrink: 0;
-            width: 72px;
-            height: 72px;
+            height: 80px;
+            width: auto;
+            max-width: 100%;
             object-fit: contain;
+            background: transparent;
+            padding: 0;
             filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.06));
-            border-radius: 10px;
-            background: #ffffff;
-            padding: 4px;
-        }
-
-        .header-text {
-            flex: 1;
-        }
-
-        .header-text h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a2a3a;
-            letter-spacing: -0.2px;
-            line-height: 1.2;
-        }
-
-        .header-text .sub {
-            font-size: 14px;
-            font-weight: 500;
-            color: #5a6f85;
-            background: #f0f3f7;
-            padding: 4px 16px 4px 14px;
-            border-radius: 30px;
-            display: inline-block;
-            margin-top: 2px;
-            letter-spacing: 0.3px;
         }
 
         .header-status {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
             background: #e6f2ed;
             padding: 6px 16px 6px 14px;
             border-radius: 50px;
@@ -95,6 +83,7 @@
             gap: 10px;
             border: 1px solid rgba(30, 107, 74, 0.12);
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .header-status .dot {
@@ -115,16 +104,19 @@
 
         /* ===== PANEL ===== */
         .panel {
-            padding: 22px 0 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 18px 0 8px;
+            min-height: 0;
         }
 
         .panel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-            gap: 8px;
+            margin-bottom: 14px;
+            flex-shrink: 0;
         }
 
         .panel-header h2 {
@@ -132,9 +124,6 @@
             font-weight: 600;
             color: #1e3142;
             letter-spacing: 0.2px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .panel-header .page-badge {
@@ -151,12 +140,14 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 14px;
+            flex: 1;
+            align-content: stretch;
         }
 
         .btn {
             background: #f8fafc;
             border: 1.5px solid #e2e8ef;
-            border-radius: 18px;
+            border-radius: 16px;
             padding: 18px 10px;
             font-size: 15px;
             font-weight: 600;
@@ -165,7 +156,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            min-height: 76px;
+            min-height: 0;
+            height: 100%;
             transition: all 0.12s ease;
             cursor: pointer;
             user-select: none;
@@ -175,19 +167,14 @@
             background: #ffffff;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
             position: relative;
-            gap: 10px;
+            flex: 1;
         }
 
-        /* Botones destacados (con asterisco) */
         .btn[data-service*="*"] {
             background: #f0f6fe;
             border-color: #b8cee8;
             color: #0f3b6a;
             font-weight: 600;
-        }
-
-        .btn[data-service*="*"] .icon-star {
-            flex-shrink: 0;
         }
 
         .btn:active:not(.empty) {
@@ -206,23 +193,11 @@
             border: 2px dashed #d0d8e2;
             cursor: default;
             opacity: 0.3;
-            min-height: 76px;
-            border-radius: 18px;
+            border-radius: 16px;
             pointer-events: none;
             box-shadow: none;
-        }
-
-        .btn .icon {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            stroke: #3a5a7a;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        .btn[data-service*="*"] .icon {
-            stroke: #0f3b6a;
+            height: 100%;
+            min-height: 0;
         }
 
         /* ===== NAVEGACIÓN ===== */
@@ -230,8 +205,9 @@
             display: flex;
             justify-content: center;
             gap: 28px;
-            margin-top: 26px;
-            margin-bottom: 4px;
+            margin-top: 16px;
+            margin-bottom: 2px;
+            flex-shrink: 0;
         }
 
         .nav-btn {
@@ -266,155 +242,54 @@
             fill: none;
         }
 
-        /* ===== TOOLBAR ===== */
-        .toolbar {
-            margin-top: 18px;
-            padding-top: 16px;
-            border-top: 1.5px solid #e6ebf2;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            color: #3a5470;
-            font-weight: 500;
-            font-size: 13px;
-        }
-
-        .toolbar-left .badge {
-            background: #eef2f8;
-            padding: 5px 14px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .toolbar-left .badge .indicator {
-            width: 12px;
-            height: 12px;
-            background: #2a7a4b;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .toolbar-left .divider {
-            width: 1px;
-            height: 24px;
-            background: #d5dee8;
-        }
-
-        .toolbar-right {
-            display: flex;
-            gap: 10px;
-        }
-
-        .toolbar-right .action-btn {
-            background: transparent;
-            border: 1.5px solid #d5dee8;
-            border-radius: 30px;
-            padding: 5px 18px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #1a3450;
-            transition: 0.1s ease;
-            cursor: pointer;
-            touch-action: manipulation;
-            background: #f7faff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .toolbar-right .action-btn:active {
-            background: #dce6f2;
-            transform: scale(0.94);
-        }
-
-        .toolbar-right .action-btn svg {
-            width: 16px;
-            height: 16px;
-            stroke: #1a3450;
-            stroke-width: 2;
-            fill: none;
-        }
-
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 780px) {
+        @media (max-width: 1024px) {
             .totem {
-                padding: 18px 16px 16px;
-                border-radius: 24px;
-            }
-            .header-text h1 {
-                font-size: 24px;
-            }
-            .grid {
-                gap: 12px;
-            }
-            .btn {
-                font-size: 13px;
-                min-height: 66px;
-                padding: 14px 6px;
-                border-radius: 14px;
-            }
-            .btn .icon {
-                width: 18px;
-                height: 18px;
-            }
-            .nav-btn {
-                padding: 8px 20px;
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 560px) {
-            .totem {
-                padding: 12px 10px 12px;
-                border-radius: 20px;
-            }
-            .header {
-                gap: 12px;
+                padding: 18px 20px 16px;
             }
             .header-logo {
-                width: 56px;
-                height: 56px;
+                height: 65px;
             }
-            .header-text h1 {
-                font-size: 20px;
+            .btn {
+                font-size: 14px;
+                padding: 14px 8px;
             }
-            .header-text .sub {
-                font-size: 12px;
-                padding: 2px 12px;
+        }
+
+        @media (max-width: 780px) {
+            .totem {
+                padding: 14px 14px 12px;
+            }
+            .header {
+                padding-bottom: 12px;
+            }
+            .header-logo {
+                height: 55px;
             }
             .header-status {
                 font-size: 11px;
-                padding: 3px 10px;
+                padding: 4px 12px;
+                gap: 6px;
+                position: relative;
+                transform: none;
+                top: auto;
+                right: auto;
+                margin-left: auto;
             }
             .grid {
-                grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
             .btn {
-                font-size: 12px;
-                min-height: 58px;
-                border-radius: 12px;
-                padding: 10px 4px;
-            }
-            .btn .icon {
-                width: 16px;
-                height: 16px;
+                font-size: 13px;
+                padding: 12px 6px;
+                border-radius: 14px;
             }
             .nav-section {
-                gap: 14px;
+                gap: 16px;
+                margin-top: 12px;
             }
             .nav-btn {
-                padding: 6px 14px;
+                padding: 8px 18px;
                 font-size: 13px;
                 gap: 6px;
             }
@@ -422,17 +297,11 @@
                 width: 16px;
                 height: 16px;
             }
-            .toolbar-left {
-                font-size: 12px;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-            .toolbar-right .action-btn {
-                padding: 4px 12px;
-                font-size: 12px;
+            .panel {
+                padding: 12px 0 4px;
             }
             .panel-header h2 {
-                font-size: 14px;
+                font-size: 15px;
             }
             .panel-header .page-badge {
                 font-size: 12px;
@@ -440,16 +309,76 @@
             }
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 560px) {
+            .totem {
+                padding: 8px 8px 8px;
+            }
+            .header {
+                gap: 10px;
+                padding-bottom: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .header-logo {
+                height: 50px;
+            }
+            .header-status {
+                font-size: 10px;
+                padding: 2px 8px;
+                gap: 4px;
+                position: relative;
+                transform: none;
+                top: auto;
+                right: auto;
+                margin-left: auto;
+            }
+            .header-status .dot {
+                width: 8px;
+                height: 8px;
+            }
             .grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
             }
             .btn {
                 font-size: 11px;
-                min-height: 50px;
                 padding: 8px 4px;
                 border-radius: 10px;
+            }
+            .nav-section {
+                gap: 12px;
+                margin-top: 10px;
+            }
+            .nav-btn {
+                padding: 6px 14px;
+                font-size: 12px;
+                gap: 4px;
+            }
+            .nav-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+            .panel-header h2 {
+                font-size: 13px;
+            }
+            .panel-header .page-badge {
+                font-size: 10px;
+                padding: 2px 8px;
+            }
+            .panel {
+                padding: 8px 0 2px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .btn {
+                font-size: 10px;
+                padding: 6px 3px;
+                border-radius: 8px;
             }
         }
 
@@ -471,7 +400,7 @@
 <body>
     <div class="totem" role="main">
 
-        <!-- HEADER -->
+        <!-- HEADER - SOLO LOGO -->
         <header class="header">
             <img 
                 src="{{ asset('assets/logo.png') }}" 
@@ -479,29 +408,11 @@
                 class="header-logo"
                 loading="lazy"
             >
-            <div class="header-text">
-                <h1>Municipalidad de San Luis</h1>
-                <span class="sub">Sistema de Emisión de Tickets</span>
-            </div>
-            <div class="header-status">
-                <span class="dot"></span>
-                <span>En línea · 3 módulos</span>
-            </div>
+
         </header>
 
         <!-- PANEL -->
         <div class="panel">
-            <div class="panel-header">
-                <h2>
-                    <svg width="20" height="20" viewBox="0 0 24 24" stroke="#3a5a7a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                    </svg>
-                    Servicios disponibles
-                </h2>
-                <span class="page-badge">Página 1 de 2</span>
-            </div>
-
             <!-- GRID -->
             <div class="grid" role="group" aria-label="Servicios">
                 @php
@@ -529,69 +440,15 @@
                         <div class="btn empty" aria-hidden="true"></div>
                     @else
                         @php
-                            $isStarred = strpos($label, '*') !== false;
                             $cleanLabel = trim(str_replace('*', '', $label));
                         @endphp
                         <div class="btn" data-service="{{ $label }}" role="button" tabindex="0">
-                            @if ($isStarred)
-                                <svg class="icon icon-star" width="18" height="18" viewBox="0 0 24 24" stroke="#0f3b6a" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                </svg>
-                            @else
-                                <svg class="icon" width="18" height="18" viewBox="0 0 24 24" stroke="#3a5a7a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                                </svg>
-                            @endif
                             {{ $cleanLabel }}
                         </div>
                     @endif
                 @endforeach
             </div>
-
-            <!-- NAVEGACIÓN -->
-            <div class="nav-section">
-                <div class="nav-btn" role="button" tabindex="0" aria-label="Anterior">
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 6 9 12 15 18"></polyline>
-                    </svg>
-                    <span>Anterior</span>
-                </div>
-                <div class="nav-btn" role="button" tabindex="0" aria-label="Siguiente">
-                    <span>Siguiente</span>
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 6 15 12 9 18"></polyline>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- TOOLBAR -->
-            <div class="toolbar">
-                <div class="toolbar-left">
-                    <span class="badge">
-                        <span class="indicator"></span>
-                        Sistema operativo · v2.4
-                    </span>
-                    <span class="divider"></span>
-                    <span>Seguro</span>
-                </div>
-                <div class="toolbar-right">
-                    <button class="action-btn" type="button">
-                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="23 4 23 10 17 10"></polyline>
-                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                        </svg>
-                        Actualizar
-                    </button>
-                    <button class="action-btn" type="button">
-                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                        Cerrar
-                    </button>
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -601,10 +458,7 @@
 
             const serviceBtns = document.querySelectorAll('.btn:not(.empty)');
             const navBtns = document.querySelectorAll('.nav-btn');
-            const closeBtn = document.querySelector('.action-btn:last-child');
-            const updateBtn = document.querySelector('.action-btn:first-child');
 
-            // Servicios
             serviceBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const service = this.getAttribute('data-service') || this.textContent.trim();
@@ -620,7 +474,6 @@
                 });
             });
 
-            // Navegación
             navBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     const isPrev = this.querySelector('polyline')?.getAttribute('points')
@@ -637,31 +490,6 @@
                 });
             });
 
-            // Cerrar
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function() {
-                    if (confirm('¿Cerrar la ventana de tickets?')) {
-                        const totem = document.querySelector('.totem');
-                        totem.style.transition = 'opacity 0.25s, transform 0.2s';
-                        totem.style.opacity = '0.4';
-                        totem.style.transform = 'scale(0.97)';
-                        setTimeout(() => {
-                            totem.style.opacity = '1';
-                            totem.style.transform = 'scale(1)';
-                            alert('Ventana reiniciada (simulación)');
-                        }, 280);
-                    }
-                });
-            }
-
-            // Actualizar
-            if (updateBtn) {
-                updateBtn.addEventListener('click', function() {
-                    alert('Actualizando lista de servicios... (simulación)');
-                });
-            }
-
-            // Ripple
             function createRipple(e, element) {
                 const rect = element.getBoundingClientRect();
                 const ripple = document.createElement('span');
@@ -679,7 +507,6 @@
                     ripple.remove();
                 }, 500);
             }
-
         })();
     </script>
 </body>
