@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Web\TipoClienteController;
 use App\Http\Controllers\Web\RegisterController;
 use App\Http\Controllers\Web\ReporteController;
 use App\Http\Controllers\Web\RespuestaPersonalizadaController;
@@ -14,7 +14,11 @@ use App\Http\Controllers\Web\CategoriaController;
 use App\Http\Controllers\Web\SubCategoriaController;
 use App\Http\Controllers\Web\MonitoreoController;
 use App\Http\Controllers\Web\TableroController;
-use App\Http\Controllers\Web\TipoAtencionController; // 👈 NUEVO: Importar el controlador
+use App\Http\Controllers\Web\TipoAtencionController; 
+use App\Http\Controllers\Web\UbicacionController;
+use App\Http\Controllers\Web\TipoUbicacionTicketController;
+use App\Http\Controllers\Web\AreasAtencionController;
+use App\Http\Controllers\Web\VentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [UsuarioController::class, 'login'])->name('login');
@@ -37,8 +41,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/equipo', [EquipoController::class, 'index'])->name('admin.equipo');
     Route::get('/categoria', [CategoriaController::class, 'index'])->name('admin.categoria');
     Route::get('/subcategoria', [SubCategoriaController::class, 'index'])->name('admin.subcategoria');
-    Route::get('/tipoatencion', [TipoAtencionController::class, 'index'])->name('admin.tipoatencion'); // 👈 NUEVA RUTA
-    
+    Route::get('/tipoatencion', [TipoAtencionController::class, 'index'])->name('admin.tipoatencion');
+    Route::get('/tipocliente', [TipoClienteController::class, 'index'])->name('admin.tipocliente');
+    Route::get('/ubicacion', [UbicacionController::class, 'index'])->name('admin.ubicacion');
+    Route::get('/tipoubicacionticket', [TipoUbicacionTicketController::class, 'index'])->name('admin.tipoubicacionticket');
+Route::get('/ventanilla', [VentController::class, 'index'])->name('admin.ventanilla');
+
+    // Dentro del grupo middleware('auth')
+Route::get('/areasatencion', [AreasAtencionController::class, 'index'])->name('admin.areasatencion');
     Route::get('/reservas-horario', function() {
         return view('pages.admin.reservas-horario');
     })->name('admin.reservas-horario');
